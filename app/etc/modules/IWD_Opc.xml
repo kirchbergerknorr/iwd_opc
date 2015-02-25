@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <IWD_Opc>
+            <active>true</active>
+            <codePool>community</codePool>
+        </IWD_Opc>
+    </modules>
+</config>

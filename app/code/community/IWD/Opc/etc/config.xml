@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+        <IWD_Opc>
+            <version>4.0.5</version>
+        </IWD_Opc>
+	</modules>
+	
+	<adminhtml>
+	
+		<events>
+	        <controller_action_predispatch>
+	            <observers>
+	                <opc_check_related>
+	                    <type>singleton</type>
+	                    <class>opc/observer</class>
+	                    <method>checkRequiredModules</method>
+	                </opc_check_related>
+	            </observers>
+	        </controller_action_predispatch>
+		</events>
+		
+	</adminhtml>
+	
+	<frontend>
+		<routers>
+            <opc>
+                <use>standard</use>
+                <args>
+                    <module>IWD_Opc</module>
+                    <frontName>onepage</frontName>
+                </args>
+            </opc>
+            
+             <checkout>
+                <args>
+                    <modules>
+                        <opc before="Mage_Checkout_OnepageController">IWD_Opc_Checkout</opc>
+                    </modules>
+                </args>
+            </checkout>
+            </routers>
+        
+        <layout>
+            <updates>
+                <opc>
+                    <file>iwd_opc.xml</file>
+                </opc>
+            </updates>
+        </layout>
+        
+        <translate>
+            <modules>
+                <IWD_Opc>
+                    <files>
+                        <default>IWD_Opc.csv</default>
+                    </files>
+                </IWD_Opc>
+            </modules>
+        </translate>
+        
+        <events>
+           
+            <controller_action_postdispatch_opc_json_saveOrder>
+                <observers>
+                    <hss_save_order_onepage>
+                        <class>paypal/observer</class>
+                        <method>setResponseAfterSaveOrder</method>
+                    </hss_save_order_onepage>
+                </observers>
+            </controller_action_postdispatch_opc_json_saveOrder>
+            
+            <sales_order_place_after>
+                <observers>
+                    <newsletter_order_place_after>
+                        <class>opc/observer</class>
+                        <method>newsletter</method>
+                    </newsletter_order_place_after>
+                </observers>
+            </sales_order_place_after>
+
+            <checkout_type_onepage_save_order>
+            	<observers>
+            		<checkout_type_onepage_save_order>
+                        <class>opc/observer</class>
+                        <method>applyComment</method>            			
+            		</checkout_type_onepage_save_order>
+            	</observers>
+            </checkout_type_onepage_save_order>
+
+        </events>
+
+    </frontend>
+	
+	
+	<global>
+		<models>
+        
+        	<paypal>
+				<rewrite>
+					<api_nvp>IWD_Opc_Model_Api_Nvp</api_nvp>
+					<express>IWD_Opc_Model_Paypal_Express</express>
+					<config>IWD_Opc_Model_Paypal_Config</config>
+				</rewrite>
+			</paypal>
+
+        	<braintree_payments>
+				<rewrite>
+					<paymentmethod>IWD_Opc_Model_Braintree_Paymentmethod</paymentmethod>
+				</rewrite>
+			</braintree_payments>
+			
+			<opc>
+				<class>IWD_Opc_Model</class>
+				<resourceModel>opc_resource</resourceModel>
+			</opc>
+			
+			<opc_resource>
+				<class>IWD_Opc_Model_Resource</class>
+				<entities>
+	                <customer>
+						<table>paypalauth_customer</table>
+					</customer>
+            	</entities>
+        	</opc_resource>
+		</models>
+
+		<resources>
+        			
+            <opc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </opc_write>
+
+            <opc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </opc_read>
+            
+			<opc_setup>
+				<setup>
+					<module>IWD_Opc</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</opc_setup>
+			
+        </resources>
+
+        <helpers>
+            <opc>
+                <class>IWD_Opc_Helper</class>
+            </opc>
+            <checkout>
+            	<rewrite>
+                    <url>IWD_Opc_Helper_Url</url>
+                </rewrite>
+            </checkout>
+        </helpers>
+
+        <blocks>
+        
+            <opc>
+                <class>IWD_Opc_Block</class>                
+            </opc>
+            
+            <customer>
+				<rewrite>
+					<account_dashboard_info>IWD_Opc_Block_Customer_Account_Dashboard_Info</account_dashboard_info>
+				</rewrite>
+			</customer>
+            
+            <checkout>
+            	<rewrite>
+                    <onepage_link>IWD_Opc_Block_Onepage_Link</onepage_link>                   
+                </rewrite>
+            </checkout>
+            
+            <paypal>
+				<rewrite>
+					<standard_form>IWD_Opc_Block_Paypal_Standard_Form</standard_form>
+					<express_form>IWD_Opc_Block_Paypal_Express_Form</express_form>
+				</rewrite>
+			</paypal>
+            
+        </blocks>
+    </global>
+    
+    <default>
+    	<opc>
+    		<global>
+    			<title>Onepage Checkout</title>
+    			<status>1</status>
+    		</global>
+    		<default>
+    			<shipping>freeshipping_freeshipping</shipping>
+    			<payment>checkmo</payment>
+    			<subscribe>0</subscribe>
+    			<subscribe_default>0</subscribe_default>
+    			<show_shipping>1</show_shipping>
+    			<terms_type>1</terms_type>
+    			<comment>0</comment>
+    			<discount>1</discount>
+    		</default>
+    		<geo>
+				<country>0</country>
+	            <country_file>GeoIP.dat</country_file>
+				<city>0</city>
+				<city_file>GeoLiteCity.dat</city_file>
+			</geo>
+			<paypal>
+				<status>1</status>
+	            <sandbox>0</sandbox>
+			</paypal>
+			
+			<paypallogin>
+				<status>0</status>
+	            <sandbox>0</sandbox>
+			</paypallogin>			
+    	</opc>
+    </default>
+</config>

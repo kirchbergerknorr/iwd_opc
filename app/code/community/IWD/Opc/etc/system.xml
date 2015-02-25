@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<iwdall>
+			<label>IWD Extensions</label>
+			<sort_order>210</sort_order>
+			<class>iwd-block</class>
+		</iwdall>
+	</tabs>
+	<sections>
+		<opc translate="label" module="contacts">
+			<label>One Page Checkout</label>
+			<tab>iwdall</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>100</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<global translate="label">
+					<label>Global</label>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<expanded>1</expanded>
+					<fields>
+						<info>
+							<label>Version</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<frontend_model>opc/system_config_form_fieldset_extensions
+							</frontend_model>
+						</info>
+						<status>
+							<label>Enable Module?</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>required-entry</validate>
+						</status>
+						<title translate="label">
+							<label>Title</label>
+							<frontend_type>text</frontend_type>
+							<isrequired>true</isrequired>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+					</fields>
+				</global>
+
+				<default translate="label">
+					<label>Default Settings</label>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<expanded>0</expanded>
+					<fields>
+						<!-- shipping translate="label">
+							<label>Default Shipping Method</label>
+							<frontend_type>select</frontend_type>
+							<source_model>opc/system_config_source_shipping_allmethods</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+						</shipping -->
+						
+						<payment translate="label">
+							<label>Default Payment Method</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_payment_allmethods</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</payment>
+						
+						<subscribe>
+							<label>Show Subscribe to Newsletter</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</subscribe>
+						
+						<subscribe_default>
+							<label>Check Subscribe to Newsletter by default</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</subscribe_default>
+						
+						<show_shipping>
+							<label>Show Shipping Address Form</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</show_shipping>
+						
+						
+						<terms_type>
+							<label>Terms and Conditions Output type</label>
+							<frontend_type>select</frontend_type>
+							<source_model>opc/system_config_source_terms</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</terms_type>
+						
+						<comment>
+							<label>Show comment field? </label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</comment>
+
+						<discount>
+							<label>Show discount form? </label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</discount>
+						
+					</fields>
+				</default>
+
+				<geo>
+					<label>GEO IP</label>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<expanded>1</expanded>
+					<fields>
+						<country>
+							<label>Enable Country Detection</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</country>
+						<country_file translate="label comment">
+                            <label>GeoIp filename</label>
+                            <comment><![CDATA[<a href='http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz' title='Download GeoIP database'>Download</a> and unzip file under the 'MAGETO_ROOT/lib/MaxMind/GeoIP/data' folder if you don't have it]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </country_file>
+						<city>
+							<label>Enable City Detection</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</city>
+						<city_file translate="label comment">
+                            <label>GeoCity filename</label>
+                            <comment><![CDATA[<a href='http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz' title='Download GeoCity database'>Download</a> and unzip file under the 'MAGETO_ROOT/lib/MaxMind/GeoIP/data' folder if you don't have it]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </city_file>
+					</fields>
+				</geo>
+				
+				<paypal>
+					<label>Paypal Express LightBox</label>
+					<sort_order>40</sort_order>
+					<show_in_default>1</show_in_default>
+					<expanded>1</expanded>
+					<fields>
+						<status>
+							<label>Enable Paypal Express Lightbox</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span class="notice">The site must be securely hosted on an HTTPS server.</span>]]></comment>
+						</status>
+						
+						<sandbox translate="label">
+							<label>Sandbox</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</sandbox>
+						
+					</fields>
+				</paypal>
+				
+				<paypallogin>
+					<label>Log in with PayPal</label>
+					<sort_order>50</sort_order>
+					<show_in_default>1</show_in_default>
+					<expanded>1</expanded>
+					<fields>
+						<status>
+							<label>Enable Log in with PayPal</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<isrequired>true</isrequired>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>To enable Log in with PayPal please add your SSL secured website to the PayPal whitelist. It is easy to setup by visiting <a href='https://developer.paypal.com/webapps/developer/docs/integration/direct/log-in-with-paypal/' target="_blank">this url</a> and following the instructions. After you are whitelisted you can enable your customers to Log in with PayPal.</span>]]></comment>
+						</status>
+						
+						<clientid translate="label">
+							<label>Client ID</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</clientid>
+						
+						<secret translate="label">
+							<label>Secret</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secret>
+						
+						<sandbox translate="label">
+							<label>Sandbox</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sandbox>
+						
+					</fields>
+				</paypallogin>
+				
+				<design>
+					<label>Buttons color</label>
+					<sort_order>60</sort_order>
+					<show_in_default>1</show_in_default>
+					<expanded>1</expanded>
+					<fields>
+						<plbgcolor translate="label">
+							<label>Place Order and Login buttons background color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</plbgcolor>
+						
+						<plovercolor translate="label">
+							<label>Place Order and Login buttons rollover color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</plovercolor>
+
+						<pltextcolor translate="label">
+							<label>Place Order and Login buttons text color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</pltextcolor>
+
+						<plhovertextcolor translate="label">
+							<label>Place Order and Login buttons text rollover color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</plhovertextcolor>
+						
+						<btnbgcolor translate="label">
+							<label>Other buttons background color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</btnbgcolor>
+						
+						<btnovercolor translate="label">
+							<label>Other buttons rollover color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</btnovercolor>
+
+						<btntextcolor translate="label">
+							<label>Other buttons text color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</btntextcolor>
+						
+						<btnhovertextcolor translate="label">
+							<label>Other buttons text rollover color</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[<span>Please enter color HEX code, or leave empty.</span>]]></comment>
+						</btnhovertextcolor>						
+					</fields>
+				</design>
+
+			</groups>
+
+		</opc>
+	</sections>
+</config>
