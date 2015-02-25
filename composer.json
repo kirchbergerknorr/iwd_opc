@@ -1,0 +1,15 @@
+{
+    "name": "kirchbergerknorr/IWD_Opc",
+    "description": "IWD_Opc",
+    "type": "magento-module",
+    "authors": [
+        {
+            "name": "Susanne Krieg",
+            "email": "sk@kirchbergerknorr.de"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
+
