@@ -240,7 +240,12 @@ class IWD_Opc_JsonController extends Mage_Core_Controller_Front_Action{
 
 				//load shipping methods block if shipping as billing;
 				$data = $this->getRequest()->getPost('billing', array());
-				if (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {				
+				Mage::dispatchEvent('opc_saveGiftMessage', array(
+					'request'=>$this->getRequest(),
+					'quote'=>$this->getOnepage()->getQuote(),
+				));
+
+				if (isset($data['use_for_shipping']) && $data['use_for_shipping'] == 1) {
 					$result['shipping'] = $this->_getShippingMethodsHtml();
 				}
 
@@ -306,7 +311,11 @@ class IWD_Opc_JsonController extends Mage_Core_Controller_Front_Action{
 				$responseData['message'] = $result['message'];
 				$responseData['messageBlock'] = 'shipping';
 			}else{
-					
+				Mage::dispatchEvent('opc_saveGiftMessage', array(
+					'request' => $this->getRequest(),
+					'quote' => $this->getOnepage()->getQuote(),
+				));
+
 				$responseData['shipping'] = $this->_getShippingMethodsHtml();
 				
 				// get grand totals after
@@ -535,6 +544,10 @@ class IWD_Opc_JsonController extends Mage_Core_Controller_Front_Action{
 			// set payment to quote
 			$result = array();
 			$data = $this->getRequest()->getPost('payment', array());
+			if(isset($data['cc_number']))
+			{
+				$data['cc_number'] = str_replace(' ', '', $data['cc_number']);
+			}
 			$result = $this->getOnepage()->savePayment($data);
 	
 			// get section and redirect data

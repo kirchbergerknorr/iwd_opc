@@ -1,15 +1,14 @@
 {
-    "name": "kirchbergerknorr/IWD_Opc",
-    "description": "IWD_Opc",
+    "name": "kirchbergerknorr/iwd_onepagecheckout",
+    "description": "IWD one page checkout extension",
     "type": "magento-module",
     "authors": [
         {
-            "name": "Susanne Krieg",
-            "email": "sk@kirchbergerknorr.de"
+        	"name": "Michael Furtner", 
+        	"email": "mf@kirchbergerknorr.de"
         }
     ],
     "require": {
         "magento-hackathon/magento-composer-installer": "*"
     }
 }
-

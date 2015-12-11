@@ -1,0 +1,11 @@
+<script type="text/javascript">
+    //<![CDATA[
+    if(typeof(jQueryIWD) == "undefined"){if(typeof(jQuery) != "undefined") {jQueryIWD = jQuery;}}
+    if (typeof(jQueryIWD) != "undefined") {
+        jQueryIWD(document).ready(function () {
+            jscolor.install();
+            jscolor.dir = '<?php echo $this->getJsUrl(); ?>jscolor/';
+        });
+    }
+    //]]>
+</script>

@@ -14,6 +14,7 @@
                 <input type="hidden" name="shipping[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="shipping:address_id" />
                 <ul>
                     <li class="fields"><?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress())->setFieldIdFormat('shipping:%s')->setFieldNameFormat('shipping[%s]')->toHtml() ?></li>
+                    <div class="clear"></div>
                     <li class="fields">
                         <div class="fields">
                             <label for="shipping:company"><?php echo $this->__('Company') ?></label>
@@ -22,6 +23,7 @@
                             </div>
                         </div>
                     </li>
+                    <div class="clear"></div>
             <?php $_streetValidationClass = $this->helper('opc')->getAttributeValidationClass('street'); ?>
                     <li class="wide">
                         <label for="shipping:street1" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
@@ -45,6 +47,7 @@
                         </div>
                     </li>
                     <?php endif; ?>
+                    <li class="address-additional-separator"></li>
                     <li class="fields">
                         <div class="field">
                             <label for="shipping:city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
@@ -53,9 +56,9 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label for="shipping:region" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+                            <label for="shipping:region" class="required"><em>*</em><?php echo $this->__('State / Province') ?></label>
                             <div class="input-box">
-                                <select id="shipping:region_id" name="shipping[region_id]" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+                                <select id="shipping:region_id" name="shipping[region_id]" title="<?php echo $this->__('State / Province') ?>" class="validate-select" style="display:none;">
                                     <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
                                 </select>
                                 <script type="text/javascript">
@@ -63,15 +66,15 @@
                                     $('shipping:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
                                 //]]>
                                 </script>
-                                <input type="text" id="shipping:region" name="shipping[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>" title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('opc')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                                <input type="text" id="shipping:region" name="shipping[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>" title="<?php echo $this->__('State / Province') ?>" class="input-text <?php echo $this->helper('opc')->getAttributeValidationClass('region') ?>" style="display:none;" />
                             </div>
                         </div>
                     </li>
                     <li class="fields">
                         <div class="field">
-                            <label for="shipping:postcode" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                            <label for="shipping:postcode" class="required"><em>*</em><?php echo $this->__('Zip') ?></label>
                             <div class="input-box">
-                                <input type="text" title="<?php echo $this->__('Zip/Postal Code') ?>" name="shipping[postcode]" id="shipping:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('opc')->getAttributeValidationClass('postcode') ?>"  />
+                                <input type="text" title="<?php echo $this->__('Zip') ?>" name="shipping[postcode]" id="shipping:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('opc')->getAttributeValidationClass('postcode') ?>"  />
                             </div>
                         </div>
                         <div class="field">

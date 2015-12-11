@@ -3,29 +3,39 @@
 echo $this->getDesignStyles();
 $package = Mage::getDesign()->getPackageName();
 $theme = Mage::getDesign()->getTheme('frontend');
+$is_persistent = Mage::helper('opc')->isPersistentMember();
 ?>
 <div class="opc-wrapper-opc design_package_<?php echo $package;?> design_theme_<?php echo $theme;?>">
     <h2><?php echo $this->__('Checkout')?></h2>
 	<div class="opc-menu">
-	
-	    <?php echo $this->getChildHtml('paypal.button')?>
-	            
-        <?php if (!Mage::getSingleton('customer/session')->isLoggedIn()):?>
-    		<?php echo $this->getChildHtml('login');?>	
-    	<?php endif;?>
-    	
-    	
+<?php if(!$is_persistent):?>
+		<?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+		<?php echo $this->getChildHtml('paypal.button'); ?>
+
+		<?php if (!Mage::getSingleton('customer/session')->isLoggedIn()):?>
+			<?php echo $this->getChildHtml('login');?>
+		<?php endif;?>
+
     	<div class="right review-menu-block">
-    	  <a class="review-total"><?php echo Mage::helper('opc')->getGrandTotal()?></a>   
+    	  <a class="review-total">
+    	  	<i class="fa fa-2x fa-shopping-cart"></i>
+    	  	<i class="fa fa-2x dd-arrow"></i>
+    	  	<?php echo Mage::helper('opc')->getGrandTotal()?>
+    	  </a>   
     	  <span class="polygon"></span>
     	  <div class="hidden" id="opc-review-block">
 		      <?php echo $this->_getReviewHtml()?>
 		  </div>
 		</div>
 	   <div class="clear move-columns"></div>
+<?php else:?>
+	<?php echo $this->getChildHtml('login');?>
+<?php endif;?>
 	</div>
 	
 	<div class="clear"></div>
+
+<div <?php if($is_persistent):?>style="display:none !important;"<?php endif;?>>
 
     <div class="opc-col-left">
 		<form id="opc-address-form-billing" method="post">
@@ -50,7 +60,7 @@ $theme = Mage::getDesign()->getTheme('frontend');
 		
 		<?php if(Mage::helper('opc')->isShowDiscount()):?>
 		<div class="discount-block">
-			<h3><?php echo $this->__('Discount Codes')?><span class='expand_plus'></span></h3>
+			<h3><?php echo $this->__('Discount Codes')?><span class='fa expand_plus'></span></h3>
 			<div  class="collapse-block hidden">
 			     <?php echo $this->getChildhtml('coupon');?>
 			</div>
@@ -70,7 +80,7 @@ $theme = Mage::getDesign()->getTheme('frontend');
     
         <?php if (Mage::getConfig()->getModuleConfig('IWD_OnepageCheckoutSignature')->is('active', 'true')): ?>
             <div class="signature-block">
-                <h3><?php echo $this->__('Signature')?><span class='expand_plus'></span></h3>
+                <h3><?php echo $this->__('Signature')?><span class='fa expand_plus'></span></h3>
                 <div  class="collapse-block hidden">
                     <?php echo $this->getChildhtml('opcsignature');?>
                 </div>
@@ -84,17 +94,20 @@ $theme = Mage::getDesign()->getTheme('frontend');
 		      <button type="button" title="<?php echo $this->__('Place Order Now') ?>" class="button btn-checkout opc-btn-checkout"><span><span><?php echo $this->__('Place Order Now') ?></span></span></button>
 		</div>
     </div>
+    
+</div>
+
 </div>
 <script>
 	var vopc = '<?php echo Mage::getConfig()->getModuleConfig("IWD_Opc")->version;?>';
 	IWD.OPC.Checkout.config = '<?php echo $this->getJsonConfig()?>';
 	<?php if ($this->getOnepage()->getQuote()->isVirtual()):?>
 	IWD.OPC.Checkout.isVirtual = true;
-	<?php endif;?>	 
+	<?php endif;?>
 </script>
 
 <div id="agree_error" style="display:none !important;"><?php echo $this->__('Please agree to all the terms and conditions before placing the order.');?></div>
-<div id="pssm_msg" style="display:none !important;"><?php echo $this->__('Please specify shipping method');?></div>
+<div id="pssm_msg" style="display:none !important;"><?php echo $this->__('Please specify shipping method.');?></div>
 <div class="opc-ajax-loader">
 	<div id="floatingCirclesG">
 		<div class="f_circleG" id="frotateG_01"></div>
@@ -110,7 +123,7 @@ $theme = Mage::getDesign()->getTheme('frontend');
 <div class="opc-message-wrapper design_package_<?php echo $package;?> design_theme_<?php echo $theme;?>">
 	
 	<div class="opc-messages">
-		<a class="close-message-wrapper"></a>
+		<a class="close-message-wrapper"><i class="fa fa-close"></i></a>
 		<div class="opc-message-container"></div>
 		<div class="opc-messages-action"><button class="button"><span><span><?php echo $this->__('Close')?></span></span></button></div>
 	</div>

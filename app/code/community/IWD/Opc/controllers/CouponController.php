@@ -61,6 +61,22 @@ class IWD_Opc_CouponController extends Mage_Core_Controller_Front_Action{
 		return $output;
 	}
 	
+	/**
+	 * Get shipping method step html
+	 *
+	 * @return string
+	 */
+	protected function _getShippingMethodsHtml(){
+		$layout = $this->getLayout();
+		$update = $layout->getUpdate();
+		$update->load('checkout_onepage_index');
+		$layout->generateXml();
+		$layout->generateBlocks();
+		$shippingMethods = $layout->getBlock('checkout.onepage.shipping_method');
+		$shippingMethods->setTemplate('opc/onepage/shipping_method.phtml');
+		return $shippingMethods->toHtml();
+	}
+	
 	public function couponPostAction(){
 		
 		$responseData = array();
@@ -85,8 +101,14 @@ class IWD_Opc_CouponController extends Mage_Core_Controller_Front_Action{
 			return;
 		}
 	
-		/// get list of available methods before discount changes
-		$methods_before = Mage::helper('opc')->getAvailablePaymentMethods();
+		$helper = Mage::helper('opc');
+		
+		/// get list of available payment methods before discount changes
+		$methods_before = $helper->getAvailablePaymentMethods();
+		///////
+
+		/// get list of available shipping methods before discount changes
+		$ship_methods_before = $helper->getShippings();
 		///////
 
 		try {
@@ -95,6 +117,10 @@ class IWD_Opc_CouponController extends Mage_Core_Controller_Front_Action{
 				->collectTotals()
 				->save();
 	
+			/// get list of available shipping methods after discount changes
+			$ship_methods_after = $helper->getShippings();
+			///////
+					
 			/// get list of available methods after discount changes
 			$methods_after = Mage::helper('opc')->getAvailablePaymentMethods();
 			///////
@@ -113,6 +139,12 @@ class IWD_Opc_CouponController extends Mage_Core_Controller_Front_Action{
 			$block = $layout->createBlock('checkout/cart_coupon');
 			$block->setTemplate('opc/onepage/coupon.phtml');
 			$responseData['coupon'] = $block->toHtml();
+			
+			// check if need to reload shipping methods
+			$ship_changed = Mage::helper('opc')->checkUpdatedShippingMethods($ship_methods_before, $ship_methods_after);
+			if($ship_changed)
+				$responseData['shipping'] = $this->_getShippingMethodsHtml();
+			/////
 			
 			// check if need to reload payment methods
 			$use_method = Mage::helper('opc')->checkUpdatedPaymentMethods($methods_before, $methods_after);

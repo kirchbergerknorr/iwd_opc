@@ -1,10 +1,12 @@
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
-<p class="left"><a class="login-trigger signin-modal" data-modal="modal-login"><?php echo $this->__('LOGIN')?></a></p>
+<?php
+$is_persistent = Mage::helper('opc')->isPersistentMember(); 
+?>
+<p class="left"><a class="signin-modal opc-login-trigger <?php if($is_persistent):?>is_persistent<?php endif;?>" data-modal="modal-login"><?php echo $this->__('LOGIN')?></a></p>
 
 <div class="md-modal md-effect-7" id="modal-login">
 	<div class="md-content">
 			<div class="md-modal-header">
-				<button type="button" class="close">&times;</button>
+				<button type="button" class="close"><i class="fa fa-close"></i></button>
 				<h4><?php echo $this->__('Login to your Account')?></h4>
 			</div>	
 			<div class="md-content-wrapper">
@@ -17,20 +19,25 @@
 								<div class="input-box">
 									<input type="text" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" id="email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
 								</div>
+								<div class="clear"></div>
 							</li>
-						<li>
-							<label for="pass" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
-							<div class="input-box">
-								<input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
-							</div>
-						</li>
-						
+							<div class="clear"></div>
+							<li>
+								<label for="pass" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+								<div class="input-box">
+									<input type="password" name="login[password]" class="input-text required-entry validate-password" id="pass" title="<?php echo $this->__('Password') ?>" />
+								</div>
+								<div class="clear"></div>
+							</li>
+							<div class="clear"></div>
 						</ul>				
 					</div>
+					<div class="clear"></div>
 					<input name="context" type="hidden" value="checkout" />
 				</form>
-				
+				<div class="clear"></div>
 				<?php echo $this->getChildhtml('forgotPassword');?>
+				<div class="clear"></div>
 			</div>
 			<div class="md-modal-footer">
 				<div id="login-button-set">
@@ -41,7 +48,27 @@
 		        	<p class="back-link"><a href="<?php echo $this->helper('customer')->getLoginUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Login') ?></a></p>
 		        	<button type="button" title="<?php echo $this->__('Submit') ?>" class="btn"><span><span><?php echo $this->__('Submit') ?></span></span></button>
     			</div>
+    			
+    		<?php if($is_persistent):
+    			$http_mode	= (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']==='on');
+    			$reg_url = $this->getUrl('persistent/index/saveMethod', array('_secure'=>$http_mode));
+    			if($http_mode)
+    				$reg_url	= str_replace('http:', 'https:', $reg_url);    
+    		?>
+    			<div class="md-register-area">
+					<div class="opc_lr_or">- or -</div>
+		        	<?php echo $this->__('Register to Create an Account') ?>
+		        	<form action="<?php echo $reg_url; ?>">
+		        		<input type="hidden" name="checkout_method" id="login:register" value="register" checked="checked" />
+		            	<div class="reg-buttons-set">
+		                	<button type="submit" class="btn"><span><span><?php echo $this->__('Register on Checkout') ?></span></span></button>
+		        		</div>
+					</form>
+    			</div>
+    		<?php endif;?>
+    			<div class="clear"></div>
 			</div>
+			<div class="clear"></div>
 	</div>
 </div>
 <div class="md-overlay"></div>	

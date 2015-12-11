@@ -2,7 +2,7 @@
 <config>
 	<modules>
         <IWD_Opc>
-            <version>4.0.5</version>
+            <version>4.2.2</version>
         </IWD_Opc>
 	</modules>
 	
@@ -19,7 +19,13 @@
 	            </observers>
 	        </controller_action_predispatch>
 		</events>
-		
+        <layout>
+            <updates>
+                <opc>
+                    <file>iwd_opc.xml</file>
+                </opc>
+            </updates>
+        </layout>
 	</adminhtml>
 	
 	<frontend>
@@ -60,7 +66,16 @@
         </translate>
         
         <events>
-           
+            <opc_saveGiftMessage>
+                <observers>
+                    <giftmessage>
+                        <type>model</type>
+                        <class>giftmessage/observer</class>
+                        <method>checkoutEventCreateGiftMessage</method>
+                    </giftmessage>
+                </observers>
+            </opc_saveGiftMessage>
+
             <controller_action_postdispatch_opc_json_saveOrder>
                 <observers>
                     <hss_save_order_onepage>
@@ -87,6 +102,15 @@
             		</checkout_type_onepage_save_order>
             	</observers>
             </checkout_type_onepage_save_order>
+            <checkout_cart_add_product_complete>
+                <observers>
+                    <checkout_cart_add_product_complete>
+                        <type>singleton</type>
+                        <class>opc/observer</class>
+                        <method>checkoutCartAddProductComplete</method>
+                    </checkout_cart_add_product_complete>
+                </observers>
+            </checkout_cart_add_product_complete>
 
         </events>
 
@@ -183,9 +207,17 @@
 				<rewrite>
 					<standard_form>IWD_Opc_Block_Paypal_Standard_Form</standard_form>
 					<express_form>IWD_Opc_Block_Paypal_Express_Form</express_form>
+                    <express_shortcut>IWD_Opc_Block_Paypal_Shortcut</express_shortcut>
+					<bml_form>IWD_Opc_Block_Paypal_Bml_Form</bml_form>
 				</rewrite>
 			</paypal>
-            
+            <paypaluk>
+                <rewrite>
+                    <express_shortcut>IWD_Opc_Block_Paypal_Shortcutuk</express_shortcut>
+                    <bml_form>IWD_Opc_Block_PaypalUk_Bml_Form</bml_form>
+                    <express_form>IWD_Opc_Block_PaypalUk_Express_Form</express_form>
+                </rewrite>
+            </paypaluk>
         </blocks>
     </global>
     
@@ -205,21 +237,37 @@
     			<comment>0</comment>
     			<discount>1</discount>
     		</default>
+           <!-- <design>
+                <plbgcolor>EB5E00</plbgcolor>
+                <plovercolor>F9690E</plovercolor>
+                <pltextcolor>FFFFFF</pltextcolor>
+                <plhovertextcolor>FFFFFF</plhovertextcolor>
+                <btnbgcolor>00909e</btnbgcolor>
+                <btnovercolor>39b9c6</btnovercolor>
+                <btntextcolor>FFFFFF</btntextcolor>
+                <btnhovertextcolor>FFFFFF</btnhovertextcolor>
+            </design>-->
     		<geo>
 				<country>0</country>
 	            <country_file>GeoIP.dat</country_file>
 				<city>0</city>
 				<city_file>GeoLiteCity.dat</city_file>
 			</geo>
-			<paypal>
-				<status>1</status>
-	            <sandbox>0</sandbox>
-			</paypal>
+			<!--<paypal>-->
+				<!--<status>1</status>-->
+	            <!--<sandbox>0</sandbox>-->
+			<!--</paypal>-->
 			
 			<paypallogin>
 				<status>0</status>
 	            <sandbox>0</sandbox>
 			</paypallogin>			
     	</opc>
+        <payment>
+            <incontext>
+                <enable>0</enable>
+                <sandbox>1</sandbox>
+            </incontext>
+        </payment>
     </default>
 </config>

@@ -1,12 +1,15 @@
-<script>
-	var lippConfig = '<?php echo $this->getJsonConfig();?>';
-
-(function(d, s, id){ 
-	var js, ref = d.getElementsByTagName(s)[0]; 
-	if (!d.getElementById(id)){ 
-		js = d.createElement(s); js.id = id; js.async = true; 
-		js.src = "//www.paypalobjects.com/js/external/paypal.v1.js"; 
-		ref.parentNode.insertBefore(js, ref); 
-	} 
-}(document, "script", "paypal-js")); 
-</script>
+<?php if (Mage::getStoreConfig('opc/global/status')):?>
+    <?php if (Mage::getStoreConfig('payment/incontext/enable')):?>
+        <script>
+            var PayPalLightboxConfig = '<?php echo $this->getJsonConfig();?>';
+            <?php
+                $list = Mage::getSingleton('core/session')->getIdsButtons();
+                Mage::getSingleton('core/session')->unsIdsButtons();
+            ?>
+            <?php if (is_array($list) && count($list)>0):?>
+            var IDS = <?php echo json_encode($list);?>;
+            <?php endif;?>
+        </script>
+        <script type="text/javascript" src="//www.paypalobjects.com/api/checkout.js" async></script>
+    <?php endif;?>
+<?php endif;?>

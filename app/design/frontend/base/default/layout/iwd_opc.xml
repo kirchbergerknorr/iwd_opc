@@ -11,6 +11,14 @@
         <reference name="head">
         	<action method="addItem" ifconfig="opc/paypallogin/status"><type>skin_js</type><name>js/iwd/opc/login.js</name></action>            
             <action method="addItem" ifconfig="opc/paypallogin/status"><type>skin_css</type><name>css/iwd/opc/paypal.css</name><params/></action>
+            <!--  PAYPAL EXPRESS LIGHTBOX -->
+            <action method="addItem" ifconfig="payment/incontext/enable"><type>skin_js</type><name>js/iwd/opc/paypal-in-context.js</name></action>
+        </reference>
+
+        <reference name="before_body_end">
+            <block type="opc/lipp" name="opc.lipp.js" as="">
+                <action method="setTemplate"><template>opc/lipp-js.phtml</template></action>
+            </block>
         </reference>
 	</default>
 	
@@ -24,15 +32,16 @@
         <reference name="head">		
         	<action method="addItem"><type>skin_js</type><name>js/iwd/opc/checkout.js</name></action>
         	<action method="addItem"><type>skin_js</type><name>js/iwd/opc/extend.js</name></action>
-        	<action method="addJs"><file>mage/directpost.js</file></action>        
+        	<action method="addJs"><file>mage/directpost.js</file></action>
+        	<action method="addJs"><script>mage/centinel.js</script></action>
 			<action method="addItem"><type>skin_js</type><name>js/opcheckout.js</name></action>
-			<action method="addItem" ifconfig="opc/paypal/status"><type>skin_js</type><name>js/iwd/opc/lipp.js</name></action>
+			<!--<action method="addItem" ifconfig="opc/paypal/status"><type>skin_js</type><name>js/iwd/opc/lipp.js</name></action>-->
             <action method="addCss"><stylesheet>css/iwd/opc/opc.css</stylesheet></action>
             <action method="addJs" ifconfig="payment/braintree/active"><file>braintree/braintree-1.3.4.js</file></action>
             <action method="addCss" ifconfig="payment/braintree/active"><stylesheet>braintree/css/braintree.css</stylesheet></action>
 		</reference>
         
-        <reference name="content">
+        <reference name="content">        	
 			<block type="opc/wrapper" name="es.checkout.container" template="opc/wrapper.phtml">
 			
 					 <block type="page/html_wrapper" name="paypal.button" translate="label">
@@ -80,9 +89,9 @@
         
         <!--  PAYPAL EXPRESS LIGHTBOX -->
         <reference name="before_body_end">
-			<block type="opc/lipp" name="opc.lipp.js" as="">
-				<action method="setTemplate" ifconfig="opc/paypal/status"><template>opc/lipp-js.phtml</template></action>
-			</block>
+			<!--<block type="opc/lipp" name="opc.lipp.js" as="">-->
+				<!--<action method="setTemplate" ifconfig="opc/paypal/status"><template>opc/lipp-js.phtml</template></action>-->
+			<!--</block>-->
 			<block type="opc/braintree_datajs" name="braintree_payments_data_js">
 				<action method="setTemplate" ifconfig="payment/braintree/active"><template>braintree/data_js.phtml</template></action>
 			</block>
@@ -102,17 +111,36 @@
 		</reference>		
 	</checkout_onepage_review>
 	
-	<!--  PAYPAL EXPRESS LIGHTBOX -->
-	<checkout_cart_index>
-	 	<reference name="head">					
-			<action method="addItem" ifconfig="opc/paypal/status"><type>skin_js</type><name>js/iwd/opc/lipp.js</name></action>    		
-		</reference>
-		<reference name="before_body_end">
-			<block type="opc/lipp" name="opc.lipp.js" as="">
-				<action method="setTemplate" ifconfig="opc/paypal/status"><template>opc/lipp-js.phtml</template></action>
-			</block>
-		</reference>
-	</checkout_cart_index>
+	<!--  3D SECURE (CENTINEL) -->
+	<opc_json_savepayment>
+        <reference name="checkout.onepage.review.info.items.before">
+            <block type="centinel/authentication" name="centinel.frame" template="centinel/authentication.phtml">
+                <action method="addRelatedBlock"><blockId>checkout-review-submit</blockId></action>
+                <action method="addRelatedBlock"><blockId>checkout-review-table-wrapper</blockId></action>
+                <action method="setAuthenticationStartMode"><mode>instant</mode></action>
+            </block>
+        </reference>
+    </opc_json_savepayment>
+    
+    <!--  3D SECURE (CENTINEL) - COMPLETE-->
+    <centinel_index_authenticationcomplete>
+    	<reference name="root">
+    		<action method="setTemplate"><template>opc/centinel/authentication/complete.phtml</template></action>
+    	</reference>
+    </centinel_index_authenticationcomplete>
+    
+    
+    <!--  PAYPAL EXPRESS LIGHTBOX -->
+	<!--<checkout_cart_index>-->
+	 	<!--<reference name="head">					-->
+			<!--<action method="addItem" ifconfig="opc/paypal/status"><type>skin_js</type><name>js/iwd/opc/lipp.js</name></action>    		-->
+		<!--</reference>-->
+		<!--<reference name="before_body_end">-->
+			<!--<block type="opc/lipp" name="opc.lipp.js" as="">-->
+				<!--<action method="setTemplate" ifconfig="opc/paypal/status"><template>opc/lipp-js.phtml</template></action>-->
+			<!--</block>-->
+		<!--</reference>-->
+	<!--</checkout_cart_index>-->
 	
 	
 	<!--  LOGIN WITH PAYPAL -->
