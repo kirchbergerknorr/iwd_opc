@@ -10,22 +10,6 @@ For more information please visit https://www.iwdagency.com/extensions/one-step-
 Installation
 ------------
 
-Add the `require` and `repositories` sections to your composer.json as shown in the example below. Then run `composer update`.
-
-*composer.json example*
-
 ```
-{
-    ...
-    
-    "repositories": [
-        {"type": "git", "url": "https://github.com/kirchbergerknorr/IWD_Opc"},
-    ],
-    
-    "require": {
-        "kirchbergerknorr/IWD_Opc": "*"
-    },
-    
-    ...
-}
+composer require kirchbergerknorr/iwd_opc ~4.2.2
 ```
