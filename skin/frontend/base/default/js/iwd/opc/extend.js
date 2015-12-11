@@ -13,33 +13,33 @@ var checkout =  {
 
 
 IWD.OPC.prepareExtendPaymentForm =  function(){
-	$j('.opc-col-left').hide();
-	$j('.opc-col-center').hide();
-	$j('.opc-col-right').hide();
-	$j('.opc-menu p.left').hide();	
-	$j('#checkout-review-table-wrapper').hide();
-	$j('#checkout-review-submit').hide();
+	$j_opc('.opc-col-left').hide();
+	$j_opc('.opc-col-center').hide();
+	$j_opc('.opc-col-right').hide();
+	$j_opc('.opc-menu p.left').hide();	
+	$j_opc('#checkout-review-table-wrapper').hide();
+	$j_opc('#checkout-review-submit').hide();
 	
-	$j('.review-menu-block').addClass('payment-form-full-page');
+	$j_opc('.review-menu-block').addClass('payment-form-full-page');
 	
 };
 
 IWD.OPC.backToOpc =  function(){
-	$j('.opc-col-left').show();
-	$j('.opc-col-center').show();
-	$j('.opc-col-right').show();
-	$j('#checkout-review-table-wrapper').show();
-	$j('#checkout-review-submit').show();
+	$j_opc('.opc-col-left').show();
+	$j_opc('.opc-col-center').show();
+	$j_opc('.opc-col-right').show();
+	$j_opc('#checkout-review-table-wrapper').show();
+	$j_opc('#checkout-review-submit').show();
 	
 	
 	
 	//hide payments form
-	$j('#payflow-advanced-iframe').hide();
-	$j('#payflow-link-iframe').hide();
-	$j('#hss-iframe').hide();
+	$j_opc('#payflow-advanced-iframe').hide();
+	$j_opc('#payflow-link-iframe').hide();
+	$j_opc('#hss-iframe').hide();
 
 	
-	$j('.review-menu-block').removeClass('payment-form-full-page');
+	$j_opc('.review-menu-block').removeClass('payment-form-full-page');
 	
 	IWD.OPC.saveOrderStatus = false;
 	
@@ -75,18 +75,24 @@ IWD.OPC.Centinel = {
 	},
 	
 	validate: function(){
-		if (typeof(CentinelAuthenticateController) != "undefined"){
-			$j('.opc-col-left').hide();
-			$j('.opc-col-center').hide();
-			$j('.opc-col-right').addClass('full-page');
+		var c_el = $j_opc('#centinel_authenticate_block');
+		if(typeof(c_el) != 'undefined' && c_el != undefined && c_el){
+			if(c_el.attr('id') == 'centinel_authenticate_block'){
+				IWD.OPC.prepareExtendPaymentForm();
+			}
 		}
 	},
 	
 	success: function(){
-		if (typeof(CentinelAuthenticateController) != "undefined"){
-			$j('.opc-col-right').removeClass('full-page');
-			$j('.opc-col-left').show();
-			$j('.opc-col-center').show();
+		var exist_el = false;
+		if(typeof(c_el) != 'undefined' && c_el != undefined && c_el){
+			if(c_ell.attr('id') == 'centinel_authenticate_block'){
+				exist_el = true;
+			}
+		}
+		
+		if (typeof(CentinelAuthenticateController) != "undefined" || exist_el){
+			IWD.OPC.backToOpc();
 		}
 	}
 	
@@ -95,6 +101,6 @@ IWD.OPC.Centinel = {
 
 function toggleContinueButton(){}//dummy
 
-$j(document).ready(function(){
+$j_opc(document).ready(function(){
 	IWD.OPC.Centinel.init();
 });

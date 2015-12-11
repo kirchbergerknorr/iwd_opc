@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addJs"><file>iwd/opc/colorpicker/jscolor.js</file></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="iwd.opc.jsinit" template="iwd/opc/jsinit.phtml"/>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>

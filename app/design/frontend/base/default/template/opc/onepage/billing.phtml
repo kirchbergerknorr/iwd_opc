@@ -14,6 +14,7 @@
             <input type="hidden" name="billing[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="billing:address_id" />
             <ul>
                 <li class="fields"><?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress()->getFirstname() ? $this->getAddress() : $this->getQuote()->getCustomer())->setForceUseCustomerRequiredAttributes(!$this->isCustomerLoggedIn())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?></li>
+                <div class="clear"></div>
                 <li class="fields">
                     <div class="field">
                         <label for="billing:company"><?php echo $this->__('Company') ?></label>
@@ -30,6 +31,7 @@
                     </div>
         <?php endif; ?>
                 </li>
+                <div class="clear"></div>
         <?php $_streetValidationClass = $this->helper('opc')->getAttributeValidationClass('street'); ?>
                 <li class="wide">
                     <label for="billing:street1" class="required"><em>*</em><?php echo $this->__('Address') ?></label>
@@ -53,6 +55,7 @@
                     </div>
                 </li>
                 <?php endif; ?>
+                <li class="address-additional-separator"></li>
                 <li class="fields">
                     <div class="field">
                         <label for="billing:city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
@@ -61,9 +64,9 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label for="billing:region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+                        <label for="billing:region_id" class="required"><em>*</em><?php echo $this->__('State / Province') ?></label>
                         <div class="input-box">
-                            <select id="billing:region_id" name="billing[region_id]" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+                            <select id="billing:region_id" name="billing[region_id]" title="<?php echo $this->__('State / Province') ?>" class="validate-select" style="display:none;">
                                 <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
                             </select>
                             <script type="text/javascript">
@@ -71,15 +74,15 @@
                                 $('billing:region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
                             //]]>
                             </script>
-                            <input type="text" id="billing:region" name="billing[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('opc')->getAttributeValidationClass('region') ?>" style="display:none;" />
+                            <input type="text" id="billing:region" name="billing[region]" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State / Province') ?>" class="input-text <?php echo $this->helper('opc')->getAttributeValidationClass('region') ?>" style="display:none;" />
                         </div>
                     </div>
                 </li>
                 <li class="fields">
                     <div class="field">
-                        <label for="billing:postcode" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                        <label for="billing:postcode" class="required"><em>*</em><?php echo $this->__('Zip') ?></label>
                         <div class="input-box">
-                            <input type="text" title="<?php echo $this->__('Zip/Postal Code') ?>" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('opc')->getAttributeValidationClass('postcode') ?>" />
+                            <input type="text" title="<?php echo $this->__('Zip') ?>" name="billing[postcode]" id="billing:postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" class="input-text validate-zip-international <?php echo $this->helper('opc')->getAttributeValidationClass('postcode') ?>" />
                         </div>
                     </div>
                     <div class="field">
@@ -120,6 +123,7 @@
                                 </div>
                             <?php endif ?>
                             </li>
+                            <div class="clear"></div>
                         <?php endif ?>
 
                     <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
@@ -145,6 +149,14 @@
     </li>
     <?php /* Extensions placeholder */ ?>
     <?php echo $this->getChildHtml('checkout.onepage.billing.extra')?>
+
+    <!-- fix browser autocomplete -->
+	<div style="display:none !important">
+		<input type="text" autocomplete="off" value="" />
+		<input type="password" autocomplete="off" value=""/>
+	</div>
+	<!-- end fix browser autocomplete -->
+    
     <?php if(!$this->isCustomerLoggedIn()): ?>
     
     	<?php
@@ -161,13 +173,13 @@
 			<div class="field">
 				<label for="billing:customer_password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
 				<div class="input-box">
-					<input type="password" name="billing[customer_password]" id="billing:customer_password" title="<?php echo $this->__('Password') ?>" class="input-text validate-password <?php if(!$guest_allowed):?>required-entry<?php endif;?>" autocomplete="off"/>
+					<input type="password" name="billing[customer_password]" title="<?php echo $this->__('Password') ?>" id="billing:customer_password" class="input-text validate-password <?php if(!$guest_allowed):?>required-entry<?php endif;?>" autocomplete="off" value=""/>
 				</div>
 			</div>
 			<div class="field">
 				<label for="billing:confirm_password" class="required"><em>*</em><?php echo $this->__('Confirm Password') ?></label>
 				<div class="input-box">
-					<input type="password" name="billing[confirm_password]" title="<?php echo $this->__('Confirm Password') ?>" id="billing:confirm_password" class="input-text validate-cpassword <?php if(!$guest_allowed):?>required-entry<?php endif;?>" autocomplete="off"/>
+					<input type="password" name="billing[confirm_password]" title="<?php echo $this->__('Confirm Password') ?>" id="billing:confirm_password" class="input-text validate-cpassword <?php if(!$guest_allowed):?>required-entry<?php endif;?>" autocomplete="off" value=""/>
 				</div>
 			</div>
 		</li>

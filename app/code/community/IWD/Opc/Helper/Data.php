@@ -172,5 +172,62 @@ class IWD_Opc_Helper_Data extends Mage_Core_Helper_Abstract{
 	     
 	    return Mage::helper('checkout')->formatPrice($total);
 	}
+
+
+	// check if user is from persistent cookie
+	function isPersistentMember()
+	{
+		$customerSession = Mage::getSingleton('customer/session');
+		if (!$customerSession->isLoggedIn()) {
+			$persistent_sess = Mage::helper('persistent/session');
+			if($persistent_sess && $persistent_sess->isPersistent())
+				return true;
+		}
+		return false;
+	}
+	
+	
+	public function getShippings(){
+		$_shippingRateGroups = Mage::app()->getLayout()->createBlock('checkout/onepage_shipping_method_available')->getShippingRates();
+		
+		$shippingCodePrice = array();
+		if ($_shippingRateGroups){ 
+		    foreach ($_shippingRateGroups as $code => $_rates){
+		    	foreach ($_rates as $_rate){
+		    		$shippingCodePrice[$code.'_'.$_rate->getCode()] = (float)$_rate->getPrice();
+		    	}
+		    }
+		}
+		return $shippingCodePrice;
+	}
+	
+	/**
+	 * check if shipping methods were changed
+	 *
+	 * @param array $methods_before
+	 * @param array $methods_after
+	 * @return boolean
+	 */
+	public function checkUpdatedShippingMethods($methods_before, $methods_after)
+	{
+		$changed = false;
+		if(count($methods_before) != count($methods_after))
+			$changed = true;
+	
+		foreach($methods_after as $_code => $price)
+		{
+			if(!$changed)
+			{
+				if(!isset($methods_before[$_code]))
+					$changed = true;
+				else{ // compare prices
+					if($price != $methods_before[$_code])
+						$changed = true;
+				}
+			}
+		}
+	
+		return $changed;
+	}
 	
 }

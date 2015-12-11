@@ -1,5 +1,19 @@
 <?xml version="1.0" ?>
 <config>
+    <menu>
+        <system>
+            <children>
+                <iwdall>
+                    <children>
+                        <opc>
+                            <title>One Page Checkout</title>
+                            <action>adminhtml/system_config/edit/section/opc</action>
+                        </opc>
+                    </children>
+                </iwdall>
+            </children>
+        </system>
+    </menu>
 	<acl>
         <resources>
             <admin>
