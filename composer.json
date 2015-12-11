@@ -1,5 +1,5 @@
 {
-    "name": "kirchbergerknorr/iwd_onepagecheckout",
+    "name": "kirchbergerknorr/iwd_opc",
     "description": "IWD one page checkout extension",
     "type": "magento-module",
     "authors": [
