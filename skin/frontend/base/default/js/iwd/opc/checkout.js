@@ -1585,10 +1585,11 @@ IWD.OPC.Decorator = {
 		},
 		
 		setCurrentPaymentActive: function(){
-			
-			var method = payment.currentMethod;
-			$j_opc('#p_method_'+method).parent().addClass('active');
-			IWD.OPC.Decorator.decoratePayment($j_opc('#p_method_'+method).parent());
+			if(typeof  payment != 'undefined') {
+				var method = payment.currentMethod;
+				$j_opc('#p_method_' + method).parent().addClass('active');
+				IWD.OPC.Decorator.decoratePayment($j_opc('#p_method_' + method).parent());
+			}
 		},
 		
 		decorateSelect: function(){
