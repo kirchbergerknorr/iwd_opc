@@ -802,7 +802,7 @@ IWD.OPC.Checkout = {
 					return;
 				}
 				
-				if (typeof(response.payments)!="undefined"){
+				if (typeof(response.payments)!="undefined" && typeof(payment)!="undefined"){
 					$j_opc('#checkout-payment-method-load').html(response.payments);
 					
 					payment.initWhatIsCvvListeners();
