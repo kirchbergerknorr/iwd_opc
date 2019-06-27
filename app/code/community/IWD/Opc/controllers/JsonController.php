@@ -581,7 +581,24 @@ class IWD_Opc_JsonController extends Mage_Core_Controller_Front_Action{
 	/**
 	* Create order action
 	*/
-	public function saveOrderAction(){
+	public function saveOrderAction()
+    {
+        // <snk: disallow guest ordes if enabled
+        if (Mage::getStoreConfig('opc/global/disable_guest_orders')
+            && !Mage::getSingleton('customer/session')->isLoggedIn()
+        ) {
+            Mage::getSingleton('customer/session')->addNotice(
+                $this->__('Your session has expired. Please, log in again.')
+            );
+            $this->getResponse()->setHeader('Content-type', 'application/json', true);
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
+                'redirect' => Mage::getUrl('customer/account/login')
+            ]));
+
+            return;
+        }
+        // </snk>
+
         if ($this->_expireAjax()) {
             return;
         }

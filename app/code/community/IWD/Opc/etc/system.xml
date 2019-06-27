@@ -43,6 +43,17 @@
 							<show_in_store>1</show_in_store>
 							<validate>required-entry</validate>
 						</status>
+                        <!-- <snk -->
+						<disable_guest_orders>
+							<label>Disable guest orders</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</disable_guest_orders>
+                        <!-- /snk> -->
 						<title translate="label">
 							<label>Title</label>
 							<frontend_type>text</frontend_type>
